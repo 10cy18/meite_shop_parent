@@ -6,7 +6,7 @@
 
     <groupId>com.cy</groupId>
     <artifactId>meite-shop-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-RELEASE</version>
     <packaging>pom</packaging>
     <modules>
         <module>meite_shop_basics</module>

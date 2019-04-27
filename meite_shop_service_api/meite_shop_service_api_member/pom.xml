@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.cy</groupId>
         <artifactId>meite_shop_service_api</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
 
     <artifactId>meite_shop_service_api_member</artifactId>
@@ -15,7 +15,7 @@
         <dependency>
             <groupId>com.cy</groupId>
             <artifactId>meite_shop_service_api_weixin</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.1-RELEASE</version>
         </dependency>
     </dependencies>
 </project>

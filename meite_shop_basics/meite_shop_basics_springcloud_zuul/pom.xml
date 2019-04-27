@@ -5,7 +5,7 @@
     <parent>
         <artifactId>meite_shop_basics</artifactId>
         <groupId>com.cy</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1-RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,6 +21,17 @@
             <groupId>com.spring4all</groupId>
             <artifactId>swagger-spring-boot-starter</artifactId>
             <version>1.7.0.RELEASE</version>
+        </dependency>
+        <!-- 阿波罗整合springboot -->
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-core</artifactId>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
 </project>
