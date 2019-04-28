@@ -47,7 +47,7 @@ public class AppGateWay {
             resources.add(swaggerResource("app-cy-member", "/app-cy-member/v2/api-docs", "2.0"));
             resources.add(swaggerResource("app-cy-weixin", "/app-cy-weixin/v2/api-docs", "2.0"));
             return resources;*/
-           return resources();
+            return resources();
         }
 
         /**
