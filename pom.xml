@@ -14,6 +14,7 @@
         <module>meite_shop_service_impl</module>
         <module>meite_shop_service_api</module>
         <module>meite_shop_common</module>
+        <module>meite_shop_api_entity</module>
     </modules>
 
     <parent>
@@ -67,7 +68,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-
     </dependencies>
     <!-- 管理依赖 -->
     <dependencyManagement>

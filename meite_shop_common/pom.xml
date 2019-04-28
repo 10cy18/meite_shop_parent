@@ -10,6 +10,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>meite_shop_common</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>meite_shop_common_core</module>
+    </modules>
 
 
 </project>
