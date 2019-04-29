@@ -16,5 +16,10 @@
             <artifactId>meite_shop_service_api_member</artifactId>
             <version>0.0.1-RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>com.cy</groupId>
+            <artifactId>meite_shop_service_api_weixin</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
     </dependencies>
 </project>

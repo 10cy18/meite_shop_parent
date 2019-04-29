@@ -11,5 +11,11 @@
 
     <artifactId>meite_shop_service_api_weixin</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.cy</groupId>
+            <artifactId>meite_shop_api_weixin_entity1</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
+    </dependencies>
 </project>
