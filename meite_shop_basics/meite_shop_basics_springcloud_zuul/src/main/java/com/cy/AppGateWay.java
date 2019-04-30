@@ -38,16 +38,17 @@ public class AppGateWay {
     @Primary
     class DocumentationConfig implements SwaggerResourcesProvider {
         //访问swagger-ui页面的每次都会访问以下get()方法
-        @SuppressWarnings("rawtypes")
         @Override
         public List<SwaggerResource> get() {
-           /* List resources = new ArrayList<>();
             // app-itmayiedu-order
             // 网关使用服务别名获取远程服务的SwaggerApi
+            List resources = new ArrayList<>();
             resources.add(swaggerResource("app-cy-member", "/app-cy-member/v2/api-docs", "2.0"));
             resources.add(swaggerResource("app-cy-weixin", "/app-cy-weixin/v2/api-docs", "2.0"));
-            return resources;*/
-            return resources();
+            return resources;
+
+            //通过阿波罗动态获取swagger配置文件
+            // return resources();
         }
 
         /**

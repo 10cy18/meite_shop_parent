@@ -12,6 +12,6 @@
     <artifactId>meite_shop_api_entitys</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>meite_shop_api_weixin_entity1</module>
+        <module>meite_shop_api_weixin_entity</module>
     </modules>
 </project>

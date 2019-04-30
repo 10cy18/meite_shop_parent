@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.cy</groupId>
-            <artifactId>meite_shop_api_weixin_entity1</artifactId>
+            <artifactId>meite_shop_api_weixin_entity</artifactId>
             <version>0.0.1-RELEASE</version>
         </dependency>
     </dependencies>

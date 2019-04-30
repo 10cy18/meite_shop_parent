@@ -1,5 +1,7 @@
 package com.cy.weixin.service;
 
+import com.cy.base.BaseApiService;
+import com.cy.base.BaseResponse;
 import com.cy.weixin.entity.AppEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,5 +18,5 @@ public interface WeiXinAppService {
      */
     @ApiOperation(value = "微信服务接口")
     @GetMapping("/getApp")
-    public AppEntity getApp();
+    public BaseResponse<AppEntity> getApp();
 }

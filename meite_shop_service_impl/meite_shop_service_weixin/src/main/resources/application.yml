@@ -1,0 +1,59 @@
+###服务启动端口号
+server:
+  port: 8200
+###服务名称(服务注册到eureka名称)
+spring:
+    application:
+      name: app-cy-weixin
+    redis:
+      host: 47.106.239.93
+      port: 6379
+      password:
+      jedis:
+        pool:
+          max-idle: 100
+          min-idle: 1
+          max-active: 1000
+          max-wait: -1
+
+###服务注册到eureka地址
+eureka:
+  client:
+    service-url:
+           defaultZone: http://localhost:8100/eureka
+####swagger相关配置
+swagger:
+  base-package: com.cy.weixin.service
+  title: SpringCloud2.x构建微服务电商项目-微信服务接口
+  description: 该项目“基于SpringCloud2.x构建微服务电商项目”
+  version: 1.1
+  terms-of-service-url: www.cy.com
+  contact:
+    name: 陈勇
+    email: 986275730@qq.com
+
+logging:
+  level:
+    org.springframework.web: INFO
+    com.github.binarywang.demo.wx.mp: DEBUG
+    me.chanjar.weixin: DEBUG
+wx:
+  mp:
+    configs:
+      - appId: wxd7b2a4c09bc33beb #（一个公众号的appid）
+        secret: 4a35fa3e7ed3b1f79b28766001ac7515 #（公众号的appsecret）
+        token: cy #（接口配置里的Token值）
+
+cy:
+  weixin:
+    name: 陈勇
+    registration:
+      code:
+        ###微信注册码消息
+        message:  您的注册码为:%s，【cy】！
+    ###默认提示消息
+    default:
+      registration:
+        code:
+          message: 您的消息，我们已经收到,会及时回复给您的!
+
