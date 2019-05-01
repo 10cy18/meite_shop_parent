@@ -17,6 +17,12 @@
             <artifactId>meite_shop_service_api_weixin</artifactId>
             <version>0.0.1-RELEASE</version>
         </dependency>
+        <!--微信调用会员接口-->
+        <dependency>
+            <groupId>com.cy</groupId>
+            <artifactId>meite_shop_service_api_member</artifactId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>

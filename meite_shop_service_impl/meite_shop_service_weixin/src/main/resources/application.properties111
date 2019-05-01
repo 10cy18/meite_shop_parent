@@ -1,2 +1,5 @@
 app.id=app-cy-weixin
 apollo.meta=http://192.168.222.129:8080
+#配置多个namespace
+#apollo.bootstrap.enabled = true
+#apollo.bootstrap.namespaces = application,cy.weixin

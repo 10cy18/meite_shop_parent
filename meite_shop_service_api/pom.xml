@@ -17,15 +17,9 @@
     </modules>
 
     <dependencies>
-        <!-- swagger-spring-boot -->
         <dependency>
-            <groupId>com.spring4all</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
-            <version>1.7.0.RELEASE</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cy</groupId>
             <artifactId>meite_shop_common_cores</artifactId>
+            <groupId>com.cy</groupId>
             <version>0.0.1-RELEASE</version>
         </dependency>
     </dependencies>

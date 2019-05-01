@@ -1,9 +1,12 @@
 package com.cy.weixin.mp.handler;
 
+import com.cy.base.BaseResponse;
+import com.cy.constants.Constants;
 import com.cy.core.utils.RedisUtil;
 import com.cy.core.utils.RegexUtils;
+import com.cy.member.output.dto.UserOutDTO;
+import com.cy.weixin.feign.MemberServiceFeign;
 import com.cy.weixin.mp.builder.TextBuilder;
-import com.cy.constants.Constants;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.common.session.WxSessionManager;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -38,6 +41,9 @@ public class MsgHandler extends AbstractHandler {
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    private MemberServiceFeign memberServiceFeign;
+
     @Override
     public WxMpXmlOutMessage handle(WxMpXmlMessage wxMessage,
                                     Map<String, Object> context, WxMpService weixinService,
@@ -64,6 +70,14 @@ public class MsgHandler extends AbstractHandler {
         String fromContent = wxMessage.getContent();
         //2、使用正则表达式验证消息是不是手机号格式
         if(RegexUtils.checkMobile(fromContent)){
+            //根据手机号调用会员服务接口查询用户信息是否存在
+            BaseResponse<UserOutDTO> resultUserInfo = memberServiceFeign.existMobile(fromContent);
+            if(resultUserInfo.getCode().equals(Constants.HTTP_RES_CODE_200)){
+                return new TextBuilder().build("该手机号码"+fromContent+"已存在！",wxMessage,weixinService);
+            }
+            if(!resultUserInfo.getCode().equals(Constants.HTTP_RES_CODE_EXISTMOBILE_203)){
+                return  new TextBuilder().build(resultUserInfo.getMsg(),wxMessage,weixinService);
+            }
             //3、如果是手机号码格式，就随机产生4位数字注册码
             int registCode = registCode();
             String content = String.format(registrationCodeMessage, registCode);
