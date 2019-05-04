@@ -17,11 +17,10 @@ spring:
           max-wait: -1
 ###数据库相关连接
     datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://47.106.239.93:3308/cy_weixin?useUnicode=true&characterEncoding=UTF-8
       username: root
       password: root
-      driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://47.106.239.93:3308/cy_weixin
-
 
 ###服务注册到eureka地址
 eureka:

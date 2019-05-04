@@ -4,6 +4,8 @@ import com.cy.base.BaseApiService;
 import com.cy.base.BaseResponse;
 import com.cy.constants.Constants;
 import com.cy.core.bean.MiteBeanUtils;
+import com.cy.core.token.GenerateToken;
+import com.cy.core.type.TypeCastHelper;
 import com.cy.member.feign.WeiXinAppServiceFeign;
 import com.cy.member.mapper.UserMapper;
 import com.cy.member.mapper.entity.UserDO;
@@ -22,7 +24,8 @@ public class MemberServiceImpl extends BaseApiService<UserOutDTO> implements Mem
     private WeiXinAppServiceFeign weiXinAppServiceFeign;
     @Autowired
     private UserMapper userMapper;
-
+    @Autowired
+    private GenerateToken generateToken;
     /**
      * 会员调用微信
      * @return
@@ -48,6 +51,26 @@ public class MemberServiceImpl extends BaseApiService<UserOutDTO> implements Mem
         return setResultSuccess(MiteBeanUtils.doToDto(userDO,UserOutDTO.class));
     }
 
-
+    @Override
+    public BaseResponse<UserOutDTO> getInfo(String token) {
+        // 1.参数验证
+        if (StringUtils.isEmpty(token)) {
+            return setResultError("token不能为空!");
+        }
+        // 2.使用token向redis中查询userId
+        String redisValue = generateToken.getToken(token);
+        if (StringUtils.isEmpty(redisValue)) {
+            return setResultError("token已经失效或者不正确");
+        }
+        Long userId = TypeCastHelper.toLong(redisValue);
+        // 3.根据userId查询用户信息
+        UserDO userDo = userMapper.findByUserId(userId);
+        if (userDo == null) {
+            return setResultError("用户信息不存在!");
+        }
+        // 4.将Do转换为Dto
+        UserOutDTO doToDto = MiteBeanUtils.doToDto(userDo, UserOutDTO.class);
+        return setResultSuccess(doToDto);
+    }
 
 }

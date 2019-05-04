@@ -11,7 +11,7 @@ public class UserDO {
      * userid
      */
     @ApiModelProperty(value = "用户id")
-    private Long userid;
+    private Integer userId;
     /**
      * 手机号码
      */
@@ -56,7 +56,7 @@ public class UserDO {
      * 账号是否可以用 1 正常 0冻结
      */
     @ApiModelProperty(value = "账号是否可以用 1 正常 0冻结")
-    private char is_avalible;
+    private char isAvalible;
     /**
      * 用户头像
      */
