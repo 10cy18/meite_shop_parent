@@ -63,7 +63,7 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
         }
         // 3.查询之前是否有过登陆
         Integer userId = userDo.getUserId();
-        UserTokenDo userTokenDo = userTokenMapper.selectByUserIdAndLoginType(userId,loginType);//25L, loginType
+        UserTokenDo userTokenDo = userTokenMapper.selectByUserIdAndLoginType(userId,loginType);
         if (userTokenDo != null) {
             // 4.清除之前的token
             String token = userTokenDo.getToken();
@@ -72,18 +72,19 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
                 userTokenMapper.updateTokenAvailability(token);
             }
         }
-        // 5. 生成新的token
-        String keyPrefix = Constants.MEMBER_TOKEN_KEYPREFIX + loginType;
-        String newToken = generateToken.createToken(keyPrefix, userId + "",Constants.MEMBRE_LOGIN_TOKEN_TIME);
-        JSONObject tokenData = new JSONObject();
-        tokenData.put("token", newToken);
         // 6.存入在数据库中
         UserTokenDo userToken = new UserTokenDo();
         userToken.setUserId(userId);
         userToken.setLoginType(userLoginInpDTO.getLoginType());
+        // 5. 生成新的token
+        String keyPrefix = Constants.MEMBER_TOKEN_KEYPREFIX + loginType;
+        String newToken = generateToken.createToken(keyPrefix, userId + "",Constants.MEMBRE_LOGIN_TOKEN_TIME);
         userToken.setToken(newToken);
         userToken.setDeviceInfor(deviceInfor);
         userTokenMapper.insertUserToken(userToken);
+
+        JSONObject tokenData = new JSONObject();
+        tokenData.put("token", newToken);
         return setResultSuccess(tokenData);
     }
 
