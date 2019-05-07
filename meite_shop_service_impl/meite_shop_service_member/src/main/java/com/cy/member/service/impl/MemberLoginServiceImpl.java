@@ -14,6 +14,7 @@ import com.cy.member.mapper.entity.UserTokenDo;
 import com.cy.member.service.MemberLoginService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,6 +28,9 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
 
     @Autowired
     private GenerateToken generateToken;
+
+    @Autowired
+    private com.cy.core.transaction.RedisDataSoureceTransaction redisDataSoureceTransaction;
 
     @Override
     public BaseResponse<JSONObject> login(@RequestBody UserLoginInpDTO userLoginInpDTO) {
@@ -61,31 +65,47 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
         if (userDo == null) {
             return setResultError("用户名称与密码错误!");
         }
-        // 3.查询之前是否有过登陆
-        Integer userId = userDo.getUserId();
-        UserTokenDo userTokenDo = userTokenMapper.selectByUserIdAndLoginType(userId,loginType);
-        if (userTokenDo != null) {
-            // 4.清除之前的token
-            String token = userTokenDo.getToken();
-            Boolean removeToken = generateToken.removeToken(token);
-            if (removeToken) {
-                userTokenMapper.updateTokenAvailability(token);
+        TransactionStatus transactionStatus = null;
+        try {
+            // 3.查询之前是否有过登陆
+            Integer userId = userDo.getUserId();
+            UserTokenDo userTokenDo = userTokenMapper.selectByUserIdAndLoginType(userId, loginType);
+            transactionStatus = redisDataSoureceTransaction.begin();
+            if (userTokenDo != null) {
+                // 4.清除之前的token
+                String token = userTokenDo.getToken();
+                //开启redis事务 删除的时候方法会返回false
+                Boolean removeToken = generateToken.removeToken(token);
+                if (removeToken) {
+                    userTokenMapper.updateTokenAvailability(token);
+                }
             }
-        }
-        // 6.存入在数据库中
-        UserTokenDo userToken = new UserTokenDo();
-        userToken.setUserId(userId);
-        userToken.setLoginType(userLoginInpDTO.getLoginType());
-        // 5. 生成新的token
-        String keyPrefix = Constants.MEMBER_TOKEN_KEYPREFIX + loginType;
-        String newToken = generateToken.createToken(keyPrefix, userId + "",Constants.MEMBRE_LOGIN_TOKEN_TIME);
-        userToken.setToken(newToken);
-        userToken.setDeviceInfor(deviceInfor);
-        userTokenMapper.insertUserToken(userToken);
+            // 6.存入在数据库中
+            UserTokenDo userToken = new UserTokenDo();
+            userToken.setUserId(userId);
+            userToken.setLoginType(userLoginInpDTO.getLoginType());
+            // 5. 生成新的token
+            String keyPrefix = Constants.MEMBER_TOKEN_KEYPREFIX + loginType;
+            String newToken = generateToken.createToken(keyPrefix, userId + "", Constants.MEMBRE_LOGIN_TOKEN_TIME);
+            userToken.setToken(newToken);
+            userToken.setDeviceInfor(deviceInfor);
+            int insertUserToken = userTokenMapper.insertUserToken(userToken);
+            if(!toDaoResult(insertUserToken)){
+                redisDataSoureceTransaction.rollback(transactionStatus);
+                return  setResultError("系统错误！");
+            }
+            JSONObject tokenData = new JSONObject();
+            tokenData.put("token", newToken);
+            redisDataSoureceTransaction.commit(transactionStatus);
+            return setResultSuccess(tokenData);
+        }catch (Exception e){
+            try{
+                redisDataSoureceTransaction.rollback(transactionStatus);
+            }catch (Exception e2){
 
-        JSONObject tokenData = new JSONObject();
-        tokenData.put("token", newToken);
-        return setResultSuccess(tokenData);
+            }
+            return  setResultError("系统错误！");
+        }
     }
 
 }
