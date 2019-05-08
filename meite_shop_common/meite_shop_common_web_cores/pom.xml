@@ -17,6 +17,11 @@
             <artifactId>meite_shop_common_cores</artifactId>
             <version>0.0.1-RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>nl.bitwalker</groupId>
+            <artifactId>UserAgentUtils</artifactId>
+            <version>1.2.4</version>
+        </dependency>
     </dependencies>
 
 </project>

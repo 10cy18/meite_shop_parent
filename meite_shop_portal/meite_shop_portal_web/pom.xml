@@ -21,5 +21,10 @@
             <groupId>com.cy</groupId>
             <version>0.0.1-RELEASE</version>
         </dependency>
+        <dependency>
+            <artifactId>meite_shop_service_api_member</artifactId>
+            <groupId>com.cy</groupId>
+            <version>0.0.1-RELEASE</version>
+        </dependency>
     </dependencies>
 </project>
