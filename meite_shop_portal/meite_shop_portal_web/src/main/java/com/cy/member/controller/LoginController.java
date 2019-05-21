@@ -11,9 +11,6 @@ import com.cy.web.base.BaseWebController;
 import com.cy.web.constans.WebConstants;
 import com.cy.web.utils.CookieUtils;
 import com.cy.web.utils.RandomValidateCodeUtil;
-import nl.bitwalker.useragentutils.Browser;
-import nl.bitwalker.useragentutils.UserAgent;
-import nl.bitwalker.useragentutils.Version;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -79,17 +76,4 @@ public class LoginController extends BaseWebController {
 		return REDIRECT_INDEX;
 	}
 
-	/**
-	 * 获取浏览器信息
-	 *
-	 * @return
-	 */
-	public String webBrowserInfo(HttpServletRequest request) {
-		// 获取浏览器信息
-		Browser browser = UserAgent.parseUserAgentString(request.getHeader("User-Agent")).getBrowser();
-		// 获取浏览器版本号
-		Version version = browser.getVersion(request.getHeader("User-Agent"));
-		String info = browser.getName() + "/" + version.getVersion();
-		return info;
-	}
 }

@@ -26,5 +26,10 @@
             <groupId>com.cy</groupId>
             <version>0.0.1-RELEASE</version>
         </dependency>
+        <dependency>
+            <artifactId>sdk4j</artifactId>
+            <groupId>com.tengxun</groupId>
+            <version>1.0</version>
+        </dependency>
     </dependencies>
 </project>

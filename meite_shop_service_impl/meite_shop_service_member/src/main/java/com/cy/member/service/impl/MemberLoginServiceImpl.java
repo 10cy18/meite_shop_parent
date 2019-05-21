@@ -65,10 +65,13 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
         if (userDo == null) {
             return setResultError("用户名称与密码错误!");
         }
+        // 用户登陆Token Session 区别
+        // 用户每一个端登陆成功之后，会对应生成一个token令牌（临时且唯一）存放在redis中作为rediskey value userid
         TransactionStatus transactionStatus = null;
         try {
-            // 3.查询之前是否有过登陆
+            // 3.查询之前是否有过登陆 获取userid
             Integer userId = userDo.getUserId();
+            // 5.根据userId+loginType 查询当前登陆类型账号之前是否有登陆过，如果登陆过 清除之前redistoken
             UserTokenDo userTokenDo = userTokenMapper.selectByUserIdAndLoginType(userId, loginType);
             transactionStatus = redisDataSoureceTransaction.begin();
             if (userTokenDo != null) {
@@ -76,8 +79,10 @@ public class MemberLoginServiceImpl extends BaseApiService<JSONObject> implement
                 String token = userTokenDo.getToken();
                 //开启redis事务 删除的时候方法会返回false
                 Boolean removeToken = generateToken.removeToken(token);
-                if (removeToken) {
-                    userTokenMapper.updateTokenAvailability(token);
+                // 把该token的状态改为1
+                int updateTokenAvailability = userTokenMapper.updateTokenAvailability(token);
+                if (!toDaoResult(updateTokenAvailability)) {
+                    return setResultError("系统错误!");
                 }
             }
             // 6.存入在数据库中
