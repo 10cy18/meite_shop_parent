@@ -1,20 +1,33 @@
 package com.cy.member.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.cy.base.BaseResponse;
+import com.cy.constants.Constants;
 import com.cy.member.feign.MemberLoginServiceFeign;
+import com.cy.member.feign.QQAuthoriFeign;
 import com.cy.web.base.BaseWebController;
+import com.cy.web.constans.WebConstants;
+import com.cy.web.utils.CookieUtils;
+import com.qq.connect.api.OpenID;
+import com.qq.connect.api.qzone.UserInfo;
+import com.qq.connect.javabeans.AccessToken;
+import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.qq.connect.oauth.Oauth;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @Slf4j
 public class QQAuthoriController extends BaseWebController {
-	/*@Autowired
-	private QQAuthoriFeign qqAuthoriFeign;*/
+	@Autowired
+	private QQAuthoriFeign qqAuthoriFeign;
 
 	private static final String MB_QQ_QQLOGIN = "member/qqlogin";
 
@@ -46,7 +59,7 @@ public class QQAuthoriController extends BaseWebController {
 	 * @param code
 	 * @return
 	 */
-	/*@RequestMapping("/qqLoginBack")
+	@RequestMapping("/qqLoginBack")
 	public String qqLoginBack(String code, HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
 		try {
 			// 使用授权码获取accessToken
@@ -95,6 +108,6 @@ public class QQAuthoriController extends BaseWebController {
 			return ERROR_500_FTL;
 		}
 
-	}*/
+	}
 	// 回调接口中 无法获取AccessToken
 }

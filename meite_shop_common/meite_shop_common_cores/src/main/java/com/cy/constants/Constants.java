@@ -44,4 +44,5 @@ public interface Constants {
 	// 用户信息不存在
 	Integer HTTP_RES_CODE_NOTUSER_203 = 203;
 
+	String HTTP_RES_CODE_QQ_LOGINTYPE = "QQ_LOGIN";
 }
