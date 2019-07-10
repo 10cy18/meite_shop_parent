@@ -14,6 +14,7 @@
     <modules>
         <module>meite_shop_basics_springcloud_eureka</module>
         <module>meite_shop_basics_springcloud_zuul</module>
+        <module>meite_shop_basics_xxl_sso_server</module>
     </modules>
 
 

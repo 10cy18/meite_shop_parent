@@ -22,7 +22,7 @@ spring:
       #url: jdbc:mysql://47.106.239.93:3308/cy_member?useUnicode=true&characterEncoding=UTF-8
       url: jdbc:mysql://127.0.0.1:3306/cy_member?useUnicode=true&characterEncoding=UTF-8
       username: root
-      password: root
+      password:
 ###服务注册到eureka地址
 eureka:
   client:

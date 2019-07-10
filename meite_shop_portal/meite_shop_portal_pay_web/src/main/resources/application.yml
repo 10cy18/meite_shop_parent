@@ -1,5 +1,3 @@
-server:
-  port: 8099
 #### 整合freemarker
 spring:
   freemarker:
@@ -14,16 +12,18 @@ spring:
     template-loader-path:
       - classpath:/templates
   application:
-    name: app-cy-portal-web
+    name: app-mayikt-portal-pay
 ###服务注册到eureka地址
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8100/eureka
-
+server:
+  port: 8050
 redis:
   hostname: 127.0.0.1
   port: 6379
+  password:
 
 xxl-sso:
   excluded:

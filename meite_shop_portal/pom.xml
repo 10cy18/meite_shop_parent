@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>meite_shop_portal_web</module>
+        <module>meite_shop_portal_pay_web</module>
     </modules>
     <parent>
         <groupId>com.cy</groupId>
